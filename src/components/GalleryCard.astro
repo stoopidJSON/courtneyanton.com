@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  coverImage: string;
+  tagline?: string | null;
+}
+const { title, href, coverImage, tagline } = Astro.props;
+---
+<a href={href} class="gallery-card group block relative overflow-hidden bg-bark/5 aspect-[4/5]">
+  <img
+    src={coverImage}
+    alt={`${title} gallery`}
+    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+    loading="lazy"
+  />
+  <div class="absolute inset-0 bg-gradient-to-t from-bark/70 via-bark/20 to-transparent"></div>
+  <div class="absolute bottom-0 left-0 right-0 p-6 text-cream">
+    <h3 class="font-display text-3xl mb-1">{title}</h3>
+    {tagline && <p class="text-sm tracking-wide opacity-90">{tagline}</p>}
+    <span class="inline-block mt-2 text-xs uppercase tracking-widest border-b border-cream/60 pb-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+      View gallery →
+    </span>
+  </div>
+</a>

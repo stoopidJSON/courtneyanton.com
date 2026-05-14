@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #f5f0e8;
+  --color-sand: #e8dcc8;
+  --color-bark: #3a2e26;
+  --color-bark-soft: #5a4a40;
+  --color-sage: #7a8c6d;
+  --color-rust: #b8755a;
+
+  --font-display: "Fraunces Variable", "Fraunces", Georgia, serif;
+  --font-body: "Inter Variable", "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-cream);
+    color: var(--color-bark);
+    font-family: var(--font-body);
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  a {
+    color: var(--color-sage);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-rust);
+  }
+}

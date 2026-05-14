@@ -1,0 +1,117 @@
+---
+// A minimal vanilla-JS lightbox. Opens when any element with [data-lightbox-trigger]
+// inside [data-lightbox-group] is clicked. Reads images from the group's child triggers.
+---
+<div
+  id="lightbox"
+  class="fixed inset-0 z-[100] bg-bark/95 hidden flex-col items-center justify-center p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Photo viewer"
+>
+  <button
+    type="button"
+    id="lightbox-close"
+    class="absolute top-4 right-4 text-cream hover:text-rust transition-colors p-2"
+    aria-label="Close"
+  >
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+  </button>
+
+  <button
+    type="button"
+    id="lightbox-prev"
+    class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-cream hover:text-rust transition-colors p-2"
+    aria-label="Previous photo"
+  >
+    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+    </svg>
+  </button>
+
+  <button
+    type="button"
+    id="lightbox-next"
+    class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-cream hover:text-rust transition-colors p-2"
+    aria-label="Next photo"
+  >
+    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/>
+    </svg>
+  </button>
+
+  <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[85vh] object-contain" />
+  <p id="lightbox-caption" class="text-cream/80 text-sm mt-4 text-center max-w-2xl"></p>
+</div>
+
+<script>
+  const lightbox = document.getElementById("lightbox") as HTMLElement | null;
+  const img = document.getElementById("lightbox-img") as HTMLImageElement | null;
+  const caption = document.getElementById("lightbox-caption") as HTMLElement | null;
+  const closeBtn = document.getElementById("lightbox-close");
+  const prevBtn = document.getElementById("lightbox-prev");
+  const nextBtn = document.getElementById("lightbox-next");
+
+  if (!lightbox || !img || !caption) {
+    // SSR / partial DOM — bail
+  } else {
+    let items: { src: string; alt: string; caption: string }[] = [];
+    let idx = 0;
+
+    function open(group: HTMLElement, startIdx: number) {
+      const triggers = Array.from(group.querySelectorAll<HTMLElement>("[data-lightbox-trigger]"));
+      items = triggers.map((t) => ({
+        src: t.dataset.src ?? "",
+        alt: t.dataset.alt ?? "",
+        caption: t.dataset.caption ?? "",
+      }));
+      idx = startIdx;
+      render();
+      lightbox!.classList.remove("hidden");
+      lightbox!.classList.add("flex");
+      document.body.style.overflow = "hidden";
+    }
+
+    function close() {
+      lightbox!.classList.add("hidden");
+      lightbox!.classList.remove("flex");
+      document.body.style.overflow = "";
+    }
+
+    function render() {
+      const item = items[idx];
+      if (!item) return;
+      img!.src = item.src;
+      img!.alt = item.alt;
+      caption!.textContent = item.caption;
+    }
+
+    function next() { idx = (idx + 1) % items.length; render(); }
+    function prev() { idx = (idx - 1 + items.length) % items.length; render(); }
+
+    document.querySelectorAll<HTMLElement>("[data-lightbox-group]").forEach((group) => {
+      const triggers = group.querySelectorAll<HTMLElement>("[data-lightbox-trigger]");
+      triggers.forEach((trigger, i) => {
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          open(group, i);
+        });
+      });
+    });
+
+    closeBtn?.addEventListener("click", close);
+    prevBtn?.addEventListener("click", prev);
+    nextBtn?.addEventListener("click", next);
+    lightbox!.addEventListener("click", (e) => {
+      if (e.target === lightbox) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (lightbox!.classList.contains("hidden")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    });
+  }
+</script>

@@ -1,0 +1,44 @@
+---
+import { getSettings } from "~/lib/content";
+const settings = await getSettings();
+---
+<footer class="bg-sand text-bark mt-24">
+  <div class="mx-auto max-w-7xl px-6 lg:px-10 py-16">
+    <div class="grid md:grid-cols-3 gap-12 md:gap-8">
+      <div>
+        <h3 class="font-display text-2xl mb-2">{settings.businessName}</h3>
+        {settings.tagline && <p class="text-sm text-bark-soft leading-relaxed">{settings.tagline}</p>}
+      </div>
+
+      <div>
+        <h4 class="font-body text-xs uppercase tracking-widest text-bark-soft mb-3">Get in touch</h4>
+        <p class="text-sm">
+          <a href={`mailto:${settings.contactEmail}`} class="hover:text-rust transition-colors">
+            {settings.contactEmail}
+          </a>
+        </p>
+        {settings.phone && <p class="text-sm mt-1">{settings.phone}</p>}
+        {settings.serviceArea && <p class="text-sm text-bark-soft mt-3 leading-relaxed">{settings.serviceArea}</p>}
+      </div>
+
+      <div>
+        <h4 class="font-body text-xs uppercase tracking-widest text-bark-soft mb-3">Follow along</h4>
+        <ul class="space-y-1 text-sm">
+          {settings.socials?.facebook && (
+            <li><a href={settings.socials.facebook} class="hover:text-rust transition-colors" target="_blank" rel="noopener">Facebook</a></li>
+          )}
+          {settings.socials?.instagram && (
+            <li><a href={settings.socials.instagram} class="hover:text-rust transition-colors" target="_blank" rel="noopener">Instagram</a></li>
+          )}
+          {settings.socials?.twitter && (
+            <li><a href={settings.socials.twitter} class="hover:text-rust transition-colors" target="_blank" rel="noopener">Twitter</a></li>
+          )}
+        </ul>
+      </div>
+    </div>
+
+    {settings.footerText && (
+      <p class="text-xs text-bark-soft mt-12 pt-8 border-t border-bark/10">{settings.footerText}</p>
+    )}
+  </div>
+</footer>

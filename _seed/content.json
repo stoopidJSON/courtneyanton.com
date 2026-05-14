@@ -1,0 +1,175 @@
+{
+  "site": {
+    "businessName": "Courtney Anton Photography",
+    "tagline": "Newborn, Baby, Child, Maternity, and Family photography. Servicing Maryland, Pennsylvania, and Washington DC.",
+    "contactEmail": "courtney@courtneyanton.com",
+    "phone": null,
+    "serviceArea": "Hanover, PA + Baltimore, MD area. Travels up to 1h10m from Hanover at no additional charge; travel fee beyond.",
+    "socials": {
+      "facebook": "https://www.facebook.com/courtneyantonphotography",
+      "twitter": "https://www.twitter.com/courtneyanton",
+      "instagram": null
+    },
+    "copyrightYear": 2019,
+    "note": "Live site has not been updated since at least 2019. Confirm with Courtney whether prices, service area, social handles, etc. still apply."
+  },
+  "hero": {
+    "slides": [
+      { "headline": "Precious Moments", "subtext": "Preserving the times you cherish...", "image": "courtneyanton/WeaverFamily40.jpg" },
+      { "headline": "Convenient & Fun", "subtext": "I work with you to make your session fun!", "image": "courtneyanton/BreakeyFamily15.jpg" },
+      { "headline": "Schedule today!", "subtext": "I can't wait to work with you!", "image": "courtneyanton/GibsonFamily27.jpg" }
+    ]
+  },
+  "about": {
+    "title": "My Story",
+    "body": "Hello, and thank you for visiting my site! My name is Courtney and I am a mother of two lovely, beautiful daughters. Early in my life I discovered that I had a passion for photography, and the birth of my daughters deepened that passion. It was a joy to capture their special moments, and it often makes my heart ache to revisit those moments years later. Photography is a craft unlike any other, and it is my goal to share my skill with you and to help capture your family's moments.",
+    "parallaxImage": "courtneyanton/Caroline52.jpg"
+  },
+  "testimonials": [
+    { "quote": "We love Courtney. She is amazing with my kids and that's the most important thing. My girls beg me for pictures with Ms. Courtney!! And of course I'm never disappointed with the pics!", "author": "Jen D." },
+    { "quote": "Courtney has the patience of a saint and the eye of an artist! She perfectly captures the essence of our kids!", "author": "Emily W." },
+    { "quote": "Courtney Anton is an extremely talented photographer, and when you can trust a complete stranger with your baby in your house, you know you've got a great person hired for the job. Her prices are also the best around.", "author": "Candace B." }
+  ],
+  "portfolioIntro": "Photography is all about holding life still for just that one moment. It's about taking every precious slice of time and turning it into a memory that will last forever. There is nothing more beautiful than the innocence of a child, and it is my mission to capture this magic and give you something irreplaceable to forever hold dear to your heart. We cannot stop time from racing by, but by putting yourself in the pilot's seat, you can make one single second last for a lifetime.",
+  "galleries": [
+    {
+      "slug": "newborn",
+      "title": "Newborn",
+      "description": "Make the gift of life last forever with professional and personal photographs of your new bundle of joy. With the right lens and the right angle, we can craft art that you won't be able to take your eyes off of.",
+      "tagline": "Custom props",
+      "order": 1
+    },
+    {
+      "slug": "baby",
+      "title": "Baby",
+      "description": "They truly do grow up far too fast, don't they? For their first birthday—or really any milestone—it's important to pause time just for a moment to capture the beauty and make it last forever.",
+      "tagline": "Natural and beautiful locations",
+      "order": 2
+    },
+    {
+      "slug": "child",
+      "title": "Child",
+      "description": "Curious, creative, loving: our children are already an undeniable and precious work of art—we're just here to celebrate it and create a timeless memory for the whole family to cherish forever.",
+      "tagline": "Year round availability",
+      "order": 3
+    },
+    {
+      "slug": "maternity",
+      "title": "Maternity",
+      "description": "Just because you haven't met them yet, doesn't mean you don't love them unconditionally—and vice versa! All you need to do is bring your bump and enthusiasm. Let's make a shoot to remember!",
+      "tagline": "Share your joy!",
+      "order": 4
+    },
+    {
+      "slug": "family",
+      "title": "Family",
+      "description": "Calling all Moms, Dads, Grandparents, Kids, and more. There is great power in numbers, and the more the merrier around these parts! So gather the troops and let's make some memories.",
+      "tagline": "Easy and fun group shots",
+      "order": 5
+    },
+    {
+      "slug": "landscape",
+      "title": "Landscape",
+      "description": "Personal landscape work.",
+      "tagline": null,
+      "order": 6
+    }
+  ],
+  "packages": {
+    "standard": [
+      {
+        "name": "Newborn Collection A",
+        "subtitle": "Session & CD",
+        "price": "$400",
+        "included": [
+          "Custom in-home session (up to 3 hours)",
+          "Time, talents & necessary props (up to 5 prop sets)",
+          "20–35 edited proofs",
+          "Online viewing gallery",
+          "20 edited, full resolution images"
+        ]
+      },
+      {
+        "name": "Newborn Collection B",
+        "subtitle": "Session & à la carte prints",
+        "price": "$275",
+        "included": [
+          "Custom in-home session (up to 3 hours)",
+          "Time, talents & necessary props (up to 5 prop sets)",
+          "20–35 edited proofs",
+          "Online viewing gallery",
+          "Customize a print package"
+        ]
+      },
+      {
+        "name": "Standard Collection A",
+        "subtitle": "Session & CD",
+        "price": "$300",
+        "included": [
+          "On-location session (up to 4 people, $20 each additional)",
+          "Time & talents",
+          "25–35 edited proofs",
+          "Online viewing gallery",
+          "20 edited, full resolution images"
+        ]
+      },
+      {
+        "name": "Standard Collection B",
+        "subtitle": "Session & à la carte prints",
+        "price": "$175",
+        "included": [
+          "On-location session (up to 4 people, $20 each additional)",
+          "Time & talents",
+          "25–35 edited proofs",
+          "Online viewing gallery",
+          "Customize a print package"
+        ]
+      }
+    ],
+    "specials": [
+      {
+        "name": "Ultimate First Year",
+        "description": "Newborn, Three Months, Six Months, Nine Months & One Year sessions",
+        "basicPrice": "$1075",
+        "plusPrice": "$1650",
+        "includedBasic": ["20–30 edited proofs", "Online viewing gallery", "(2) 8×10 & (3) 5×7 prints"],
+        "includedPlus": ["Session CDs", "20–30 edited proofs", "Online viewing gallery", "(2) 11×14 & (1) 16×24 Gallery Wrapped Canvases"]
+      },
+      {
+        "name": "Grow With Me",
+        "description": "Maternity, Newborn, Six Months & One Year sessions",
+        "basicPrice": "$825",
+        "plusPrice": "$1375",
+        "includedBasic": ["20–30 edited proofs", "Online viewing gallery", "(2) 8×10 & (3) 5×7 prints"],
+        "includedPlus": ["Session CDs", "20–30 edited proofs", "Online viewing gallery", "(4) 11×14 Gallery Wrapped Canvases"]
+      },
+      {
+        "name": "First Year",
+        "description": "Newborn, Six Months & One Year sessions",
+        "basicPrice": "$625",
+        "plusPrice": "$1050",
+        "includedBasic": ["20–30 edited proofs", "Online viewing gallery", "(2) 8×10 & (3) 5×7 prints"],
+        "includedPlus": ["Session CDs", "20–30 edited proofs", "Online viewing gallery", "(2) 11×14 Gallery Wrapped Canvases"]
+      },
+      {
+        "name": "Belly to Baby",
+        "description": "Maternity & Newborn sessions",
+        "basicPrice": "$450",
+        "plusPrice": "$750",
+        "includedBasic": ["20–30 edited proofs", "Online viewing gallery", "(2) 8×10 & (3) 5×7 prints"],
+        "includedPlus": ["Session CDs", "20–30 edited proofs", "Online viewing gallery", "(1) 11×14 Gallery Wrapped Canvas"]
+      }
+    ]
+  },
+  "contact": {
+    "intro": "Here at Courtney Anton Photography, you come first—always—which is why we constantly strive to ignite new ideas as to how we can make you as happy as possible.",
+    "email": "courtney@courtneyanton.com"
+  },
+  "faqs": [
+    { "question": "When should I schedule a newborn session?", "answer": "Schedule before your baby arrives to ensure your date is available. You'll be placed on the calendar based on your due date. The key is photographing within the first 10 days of life — newborns sleep less and lose their \"womb-like\" flexibility after ten days." },
+    { "question": "When are maternity sessions best?", "answer": "Maternity sessions are often best between 32–37 weeks." },
+    { "question": "Where do you travel for sessions?", "answer": "I shoot on-location and will travel up to 1 hour 10 minutes from my home in Hanover, PA at no additional charge. There's a travel fee for locations outside that range." },
+    { "question": "What should I expect from a newborn session?", "answer": "Newborn sessions average ~3 hours in the comfort of your home. I shoot in all natural light, so I'll need a space with windows or a large light source. Please turn up the heat — baby will spend much of the session in the nude. I bring props but love incorporating sentimental touches from your home (baby blankets, nursery, etc.)." },
+    { "question": "When will I see my photos?", "answer": "Within 3–6 weeks of your session you'll receive an online, password-protected viewing gallery. Sneak peeks may appear on my Facebook or blog before then. Once payment is received, final products arrive within three weeks (unless otherwise specified)." }
+  ]
+}

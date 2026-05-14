@@ -1,30 +1,30 @@
 {
-  "name": "nuxt-now-ui-kit-pro",
-  "version": "1.0.0",
-  "description": "Nuxt Now UI Kit PRO - Premium Nuxt.js UI Kit for Bootstrap",
-  "author": "cristijora",
+  "name": "courtneyanton.com",
+  "type": "module",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt",
-    "generate": "nuxt generate"
+    "dev": "astro dev",
+    "dev:cms": "tinacms dev --datalayer-port 9876 -c \"astro dev\"",
+    "build": "astro build",
+    "build:cms": "tinacms build && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@nuxtjs/pwa": "^3.0.0-beta.16",
-    "bootstrap": "^4.3.1",
-    "cross-env": "^5.2.0",
-    "element-ui": "^2.11.1",
-    "nouislider": "^11.1.0",
-    "nuxt": "^2.8.1",
-    "rellax": "^1.10.0",
-    "vue-lazyload": "^1.2.6",
-    "vue2-google-maps": "^0.9.6",
-    "vue2-transitions": "^0.2.3"
+    "@astrojs/mdx": "^4.2.0",
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/fraunces": "^5.2.9",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@tailwindcss/vite": "^4.1.0",
+    "astro": "^5.6.0",
+    "sharp": "^0.34.0",
+    "tailwindcss": "^4.1.0",
+    "tinacms": "^2.6.0"
   },
   "devDependencies": {
-    "babel-plugin-component": "^1.1.1",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^7.1.0"
+    "@astrojs/check": "^0.9.4",
+    "@tinacms/cli": "^1.9.0",
+    "typescript": "^5.7.0"
   }
 }

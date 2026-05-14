@@ -1,0 +1,126 @@
+---
+import Base from "~/layouts/Base.astro";
+import HeroSlider from "~/components/HeroSlider.astro";
+import GalleryCard from "~/components/GalleryCard.astro";
+import RichText from "~/components/RichText.astro";
+import { getPage, getSettings, getTestimonials, resolveGalleryReference } from "~/lib/content";
+
+const home = await getPage("home");
+const settings = await getSettings();
+const testimonials = await getTestimonials();
+
+const featured = await Promise.all(
+  (home.featuredGalleries ?? []).map(async (ref) => await resolveGalleryReference(ref.gallery))
+);
+const featuredGalleries = featured.filter((g): g is NonNullable<typeof g> => Boolean(g));
+---
+<Base
+  title={settings.businessName}
+  description={settings.tagline ?? undefined}
+  transparentHeader
+  noTopPadding
+>
+  {home.hero && home.hero.length > 0 && <HeroSlider slides={home.hero} />}
+
+  {/* Intro / story section */}
+  <section class="relative">
+    {home.introImage && (
+      <div class="hidden md:block absolute top-0 right-0 w-1/2 h-full">
+        <img
+          src={home.introImage}
+          alt=""
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-cream/40"></div>
+      </div>
+    )}
+    <div class="relative mx-auto max-w-7xl px-6 lg:px-10 py-24 md:py-32">
+      <div class="md:max-w-xl">
+        {home.introTitle && (
+          <h2 class="font-display text-4xl md:text-5xl mb-6">{home.introTitle}</h2>
+        )}
+        <RichText content={home.introBody} class="text-bark-soft text-lg" />
+      </div>
+    </div>
+  </section>
+
+  {/* Featured galleries */}
+  {featuredGalleries.length > 0 && (
+    <section class="bg-sand/50 py-24">
+      <div class="mx-auto max-w-7xl px-6 lg:px-10">
+        <div class="flex items-end justify-between mb-12">
+          <div>
+            <h2 class="font-display text-4xl md:text-5xl">Recent work</h2>
+            <p class="text-bark-soft mt-2">A glimpse into the moments I've been lucky to capture.</p>
+          </div>
+          <a href="/galleries" class="hidden md:inline-block text-sm uppercase tracking-widest border-b border-bark/40 pb-1 hover:border-rust hover:text-rust transition-colors">
+            View all galleries →
+          </a>
+        </div>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {featuredGalleries.map((gallery) => (
+            <GalleryCard
+              title={gallery.data.title}
+              href={`/galleries/${gallery.data.slug}`}
+              coverImage={gallery.data.coverImage}
+              tagline={gallery.data.tagline}
+            />
+          ))}
+        </div>
+        <div class="md:hidden mt-8 text-center">
+          <a href="/galleries" class="text-sm uppercase tracking-widest border-b border-bark/40 pb-1 hover:border-rust hover:text-rust transition-colors">
+            View all galleries →
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Testimonials */}
+  {testimonials.length > 0 && (
+    <section class="py-24">
+      <div class="mx-auto max-w-5xl px-6 lg:px-10">
+        <h2 class="font-display text-4xl md:text-5xl text-center mb-16">Kind words</h2>
+        <div class="grid md:grid-cols-3 gap-10">
+          {testimonials.map((t) => (
+            <figure class="text-center">
+              <blockquote class="font-display text-lg italic text-bark leading-relaxed mb-4">
+                "{t.data.quote}"
+              </blockquote>
+              <figcaption class="text-sm uppercase tracking-widest text-bark-soft">
+                — {t.data.author}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* CTA */}
+  <section class="bg-bark text-cream py-24">
+    <div class="mx-auto max-w-3xl px-6 text-center">
+      <h2 class="font-display text-4xl md:text-5xl mb-6">Let's create something to remember</h2>
+      <p class="text-cream/80 text-lg mb-10 leading-relaxed">
+        Every family's story is worth telling. I'd love to help capture yours.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        {home.ctaText && home.ctaHref && (
+          <a
+            href={home.ctaHref}
+            class="inline-block bg-rust !text-cream px-8 py-3 text-sm uppercase tracking-widest hover:bg-rust/90 transition-colors"
+          >
+            {home.ctaText}
+          </a>
+        )}
+        <a
+          href="/contact"
+          class="inline-block border border-cream/40 !text-cream px-8 py-3 text-sm uppercase tracking-widest hover:border-cream hover:bg-cream/10 transition-colors"
+        >
+          Get in touch
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

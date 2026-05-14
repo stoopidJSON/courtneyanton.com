@@ -1,0 +1,92 @@
+---
+interface Slide {
+  image: string;
+  headline: string;
+  subtext?: string | null;
+}
+interface Props {
+  slides: Slide[];
+}
+const { slides } = Astro.props;
+---
+<section class="hero-slider relative h-screen min-h-[600px] overflow-hidden">
+  {slides.map((slide, i) => (
+    <div
+      class:list={["hero-slide absolute inset-0", i === 0 ? "is-active" : ""]}
+      data-slide-index={i}
+    >
+      <img
+        src={slide.image}
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover"
+        loading={i === 0 ? "eager" : "lazy"}
+        fetchpriority={i === 0 ? "high" : undefined}
+      />
+      <div class="absolute inset-0 bg-bark/30"></div>
+      <div class="relative h-full flex items-center justify-center text-center px-6">
+        <div class="max-w-2xl text-cream">
+          <h1 class="font-display text-5xl md:text-7xl mb-6 drop-shadow-lg">{slide.headline}</h1>
+          {slide.subtext && (
+            <p class="font-body text-lg md:text-xl tracking-wide drop-shadow-md">{slide.subtext}</p>
+          )}
+        </div>
+      </div>
+    </div>
+  ))}
+
+  {slides.length > 1 && (
+    <div class="absolute bottom-10 left-0 right-0 flex justify-center gap-3 z-10">
+      {slides.map((_, i) => (
+        <button
+          type="button"
+          class:list={["hero-dot w-2.5 h-2.5 rounded-full transition-all", i === 0 ? "bg-cream w-8" : "bg-cream/50 hover:bg-cream/80"]}
+          data-dot-index={i}
+          aria-label={`Show slide ${i + 1}`}
+        ></button>
+      ))}
+    </div>
+  )}
+</section>
+
+<style>
+  .hero-slide {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    pointer-events: none;
+  }
+  .hero-slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  const slides = document.querySelectorAll<HTMLElement>(".hero-slide");
+  const dots = document.querySelectorAll<HTMLButtonElement>(".hero-dot");
+  if (slides.length > 1) {
+    let current = 0;
+    let timer: number;
+
+    function show(idx: number) {
+      slides.forEach((s, i) => s.classList.toggle("is-active", i === idx));
+      dots.forEach((d, i) => {
+        const isActive = i === idx;
+        d.classList.toggle("bg-cream", isActive);
+        d.classList.toggle("w-8", isActive);
+        d.classList.toggle("bg-cream/50", !isActive);
+      });
+      current = idx;
+    }
+
+    function next() { show((current + 1) % slides.length); }
+
+    function start() { timer = window.setInterval(next, 6000); }
+    function stop() { window.clearInterval(timer); }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => { stop(); show(i); start(); });
+    });
+
+    start();
+  }
+</script>
