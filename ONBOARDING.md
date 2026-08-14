@@ -116,7 +116,7 @@ Jason will hand you logins for each of these.
 
 For anything that's not a content edit (design changes, layout, new features, broken pages):
 
-📬 **Jason** — your contact info goes here.
+📬 **Jason** — 7178133143
 
 ---
 
