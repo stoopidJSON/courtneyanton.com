@@ -1,0 +1,198 @@
+---
+import Base from "~/layouts/Base.astro";
+import RichText from "~/components/RichText.astro";
+import { getPage, getSettings } from "~/lib/content";
+
+const contact = await getPage("contact");
+const settings = await getSettings();
+const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
+---
+<Base title="Contact" description="Get in touch to book your photography session.">
+  <section class="mx-auto max-w-6xl px-6 lg:px-10 py-16 md:py-24">
+    <header class="mb-16 max-w-2xl">
+      <p class="text-sm uppercase tracking-widest text-rust mb-3">Contact</p>
+      <h1 class="font-display text-5xl md:text-6xl mb-6">Let's connect</h1>
+      <RichText content={contact.intro} class="text-bark-soft text-lg" />
+      {contact.responseTime && (
+        <p class="mt-4 text-sm text-bark-soft italic">{contact.responseTime}</p>
+      )}
+    </header>
+
+    <div class="grid md:grid-cols-5 gap-12 md:gap-16 mb-20">
+      <form
+        class="md:col-span-3 space-y-6"
+        id="contact-form"
+        action="https://api.web3forms.com/submit"
+        method="POST"
+      >
+        <input type="hidden" name="access_key" value={web3formsKey} />
+        <input type="hidden" name="subject" value="New inquiry from courtneyanton.com" />
+        <input type="hidden" name="from_name" value="Courtney Anton Photography Website" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div>
+          <label for="name" class="block text-xs uppercase tracking-widest text-bark-soft mb-2">Your name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-4 py-3 bg-cream border border-sand focus:border-sage focus:outline-none transition-colors"
+          />
+        </div>
+        <div>
+          <label for="email" class="block text-xs uppercase tracking-widest text-bark-soft mb-2">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-3 bg-cream border border-sand focus:border-sage focus:outline-none transition-colors"
+          />
+        </div>
+        <div>
+          <label for="phone" class="block text-xs uppercase tracking-widest text-bark-soft mb-2">Phone (optional)</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            class="w-full px-4 py-3 bg-cream border border-sand focus:border-sage focus:outline-none transition-colors"
+          />
+        </div>
+        <div>
+          <label for="session-type" class="block text-xs uppercase tracking-widest text-bark-soft mb-2">Session type (optional)</label>
+          <select
+            id="session-type"
+            name="session_type"
+            class="w-full px-4 py-3 bg-cream border border-sand focus:border-sage focus:outline-none transition-colors"
+          >
+            <option value="">— Select —</option>
+            <option>Newborn</option>
+            <option>Baby / Milestone</option>
+            <option>Child</option>
+            <option>Maternity</option>
+            <option>Family</option>
+            <option>Multi-session package</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="message" class="block text-xs uppercase tracking-widest text-bark-soft mb-2">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
+            required
+            class="w-full px-4 py-3 bg-cream border border-sand focus:border-sage focus:outline-none transition-colors resize-vertical"
+          ></textarea>
+        </div>
+
+        <div id="contact-form-status" class="hidden"></div>
+
+        <button
+          type="submit"
+          id="contact-form-submit"
+          class="bg-rust !text-cream px-8 py-3 text-sm uppercase tracking-widest hover:bg-rust/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Send message
+        </button>
+        {!web3formsKey && (
+          <p class="text-xs text-bark-soft italic">
+            ⚠ Form not yet configured. Set <code>PUBLIC_WEB3FORMS_KEY</code> in <code>.env</code> before launch.
+          </p>
+        )}
+      </form>
+
+      <aside class="md:col-span-2 space-y-8">
+        <div>
+          <h3 class="text-xs uppercase tracking-widest text-bark-soft mb-2">Email</h3>
+          <a href={`mailto:${settings.contactEmail}`} class="text-lg hover:text-rust transition-colors">
+            {settings.contactEmail}
+          </a>
+        </div>
+        {settings.serviceArea && (
+          <div>
+            <h3 class="text-xs uppercase tracking-widest text-bark-soft mb-2">Service area</h3>
+            <p class="text-sm leading-relaxed">{settings.serviceArea}</p>
+          </div>
+        )}
+        <div>
+          <h3 class="text-xs uppercase tracking-widest text-bark-soft mb-2">Follow along</h3>
+          <ul class="space-y-1 text-sm">
+            {settings.socials?.facebook && (
+              <li><a href={settings.socials.facebook} target="_blank" rel="noopener" class="hover:text-rust transition-colors">Facebook</a></li>
+            )}
+            {settings.socials?.instagram && (
+              <li><a href={settings.socials.instagram} target="_blank" rel="noopener" class="hover:text-rust transition-colors">Instagram</a></li>
+            )}
+            {settings.socials?.twitter && (
+              <li><a href={settings.socials.twitter} target="_blank" rel="noopener" class="hover:text-rust transition-colors">Twitter</a></li>
+            )}
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <script>
+      const form = document.getElementById("contact-form") as HTMLFormElement | null;
+      const status = document.getElementById("contact-form-status");
+      const submit = document.getElementById("contact-form-submit") as HTMLButtonElement | null;
+
+      form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!form || !status || !submit) return;
+
+        const accessKey = (form.querySelector('input[name="access_key"]') as HTMLInputElement | null)?.value;
+        if (!accessKey) {
+          status.textContent = "Form is not configured yet. Please email Courtney directly.";
+          status.className = "p-4 bg-rust/10 border border-rust/30 text-bark";
+          status.classList.remove("hidden");
+          return;
+        }
+
+        submit.disabled = true;
+        const originalText = submit.textContent;
+        submit.textContent = "Sending…";
+        status.classList.add("hidden");
+
+        try {
+          const data = new FormData(form);
+          const res = await fetch(form.action, { method: "POST", body: data });
+          const json = await res.json().catch(() => ({}));
+          if (res.ok && json.success !== false) {
+            status.textContent = "Thank you! Your message has been sent. I'll reply soon.";
+            status.className = "p-4 bg-sage/10 border border-sage/30 text-bark";
+            status.classList.remove("hidden");
+            form.reset();
+          } else {
+            throw new Error(json.message ?? "Something went wrong");
+          }
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : "Something went wrong";
+          status.textContent = `Sorry — we couldn't send that. ${msg}. Please try again or email directly.`;
+          status.className = "p-4 bg-rust/10 border border-rust/30 text-bark";
+          status.classList.remove("hidden");
+        } finally {
+          submit.disabled = false;
+          submit.textContent = originalText;
+        }
+      });
+    </script>
+
+    {contact.faqs && contact.faqs.length > 0 && (
+      <section class="border-t border-sand pt-16">
+        <h2 class="font-display text-3xl md:text-4xl mb-10">Common questions</h2>
+        <dl class="space-y-8 max-w-3xl">
+          {contact.faqs.map((faq) => (
+            <div>
+              <dt class="font-display text-xl mb-2">{faq.question}</dt>
+              <dd>
+                <RichText content={faq.answer} class="text-bark-soft" />
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    )}
+  </section>
+</Base>

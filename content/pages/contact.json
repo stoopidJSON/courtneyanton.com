@@ -1,0 +1,104 @@
+{
+  "intro": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Here at Courtney Anton Photography, you come first—always—which is why we constantly strive to ignite new ideas as to how we can make you as happy as possible."
+          }
+        ]
+      }
+    ]
+  },
+  "responseTime": "I'll get back to you as soon as possible.",
+  "faqs": [
+    {
+      "question": "When should I schedule a newborn session?",
+      "answer": {
+        "type": "root",
+        "children": [
+          {
+            "type": "p",
+            "children": [
+              {
+                "type": "text",
+                "text": "Schedule before your baby arrives to ensure your date is available. You'll be placed on the calendar based on your due date. The key is photographing within the first 10 days of life — newborns sleep less and lose their \"womb-like\" flexibility after ten days."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "When are maternity sessions best?",
+      "answer": {
+        "type": "root",
+        "children": [
+          {
+            "type": "p",
+            "children": [
+              {
+                "type": "text",
+                "text": "Maternity sessions are often best between 32–37 weeks."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "Where do you travel for sessions?",
+      "answer": {
+        "type": "root",
+        "children": [
+          {
+            "type": "p",
+            "children": [
+              {
+                "type": "text",
+                "text": "I shoot on-location and will travel up to 1 hour 10 minutes from my home in Hanover, PA at no additional charge. There's a travel fee for locations outside that range."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "What should I expect from a newborn session?",
+      "answer": {
+        "type": "root",
+        "children": [
+          {
+            "type": "p",
+            "children": [
+              {
+                "type": "text",
+                "text": "Newborn sessions average ~3 hours in the comfort of your home. I shoot in all natural light, so I'll need a space with windows or a large light source. Please turn up the heat — baby will spend much of the session in the nude. I bring props but love incorporating sentimental touches from your home (baby blankets, nursery, etc.)."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "When will I see my photos?",
+      "answer": {
+        "type": "root",
+        "children": [
+          {
+            "type": "p",
+            "children": [
+              {
+                "type": "text",
+                "text": "Within 3–6 weeks of your session you'll receive an online, password-protected viewing gallery. Sneak peeks may appear on my Facebook or blog before then. Once payment is received, final products arrive within three weeks (unless otherwise specified)."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

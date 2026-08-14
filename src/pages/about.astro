@@ -1,0 +1,41 @@
+---
+import Base from "~/layouts/Base.astro";
+import RichText from "~/components/RichText.astro";
+import { getPage } from "~/lib/content";
+
+const about = await getPage("about");
+---
+<Base title="About" description="Meet Courtney Anton — newborn, baby, child, maternity, and family photographer.">
+  <section class="mx-auto max-w-5xl px-6 lg:px-10 py-16 md:py-24">
+    <div class="grid md:grid-cols-5 gap-12 md:gap-16">
+      <div class="md:col-span-2">
+        {about.portrait ? (
+          <img
+            src={about.portrait}
+            alt="Courtney Anton portrait"
+            class="w-full aspect-[4/5] object-cover"
+            loading="eager"
+          />
+        ) : (
+          <div class="w-full aspect-[4/5] bg-sand flex items-center justify-center">
+            <p class="text-bark-soft text-sm uppercase tracking-widest">Portrait coming soon</p>
+          </div>
+        )}
+      </div>
+
+      <div class="md:col-span-3">
+        <p class="text-sm uppercase tracking-widest text-rust mb-3">About</p>
+        <h1 class="font-display text-5xl md:text-6xl mb-8">
+          {about.headline ?? "My Story"}
+        </h1>
+        <RichText content={about.bio} class="text-bark-soft text-lg" />
+
+        {about.quote && (
+          <blockquote class="mt-12 pl-6 border-l-2 border-sage font-display text-2xl italic text-bark leading-relaxed">
+            "{about.quote}"
+          </blockquote>
+        )}
+      </div>
+    </div>
+  </section>
+</Base>

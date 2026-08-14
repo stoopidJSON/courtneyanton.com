@@ -1,0 +1,96 @@
+---
+import { getSettings } from "~/lib/content";
+
+interface Props {
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
+const settings = await getSettings();
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { label: "Galleries", href: "/galleries" },
+  { label: "About", href: "/about" },
+  { label: "Packages", href: "/packages" },
+  { label: "Contact", href: "/contact" },
+];
+
+function isActive(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
+---
+<header
+  class:list={[
+    "site-header",
+    "fixed top-0 left-0 right-0 z-50 transition-colors duration-300",
+    transparent ? "site-header--transparent text-cream" : "bg-cream/95 backdrop-blur text-bark border-b border-sand",
+  ]}
+>
+  <div class="mx-auto max-w-7xl px-6 lg:px-10 flex items-center justify-between h-20">
+    <a href="/" class="font-display text-xl tracking-wide hover:opacity-80 transition-opacity">
+      <span class="hidden sm:inline">{settings.businessName}</span>
+      <span class="sm:hidden">Courtney Anton</span>
+    </a>
+
+    <button
+      type="button"
+      id="mobile-menu-toggle"
+      class="md:hidden p-2 -m-2"
+      aria-label="Open menu"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <nav class="hidden md:flex items-center gap-8 font-body text-sm tracking-wide uppercase">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            "transition-colors hover:!text-rust",
+            isActive(link.href) ? "!text-rust" : (transparent ? "!text-cream" : "!text-bark"),
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+
+  <div id="mobile-menu" class="md:hidden hidden border-t border-sand bg-cream text-bark">
+    <nav class="flex flex-col py-4">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            "px-6 py-3 text-sm uppercase tracking-wide hover:bg-sand transition-colors",
+            isActive(link.href) ? "!text-rust" : "!text-bark",
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById("mobile-menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  toggle?.addEventListener("click", () => {
+    if (!menu) return;
+    const isOpen = menu.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+</script>
+
+<style>
+  .site-header--transparent {
+    background-color: transparent;
+  }
+</style>

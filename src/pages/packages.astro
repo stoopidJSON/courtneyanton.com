@@ -1,0 +1,53 @@
+---
+import Base from "~/layouts/Base.astro";
+import PackageCard from "~/components/PackageCard.astro";
+import { getPackages } from "~/lib/content";
+
+const all = await getPackages();
+const standard = all.filter((p) => p.data.category === "standard");
+const specials = all.filter((p) => p.data.category === "special");
+---
+<Base title="Packages" description="Photography session packages and pricing.">
+  <section class="mx-auto max-w-7xl px-6 lg:px-10 py-16 md:py-24">
+    <header class="mb-16 max-w-2xl">
+      <p class="text-sm uppercase tracking-widest text-rust mb-3">Pricing</p>
+      <h1 class="font-display text-5xl md:text-6xl mb-6">Packages</h1>
+      <p class="text-bark-soft text-lg leading-relaxed">
+        Every family's needs are different. Whether you want to photograph your newborn, a six-month milestone,
+        a maternity moment, or the whole crew, there's a package to suit you.
+      </p>
+    </header>
+
+    {standard.length > 0 && (
+      <div class="mb-20">
+        <h2 class="font-display text-3xl mb-8 pb-3 border-b border-sand">Standard Sessions</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {standard.map((pkg) => <PackageCard pkg={pkg} />)}
+        </div>
+      </div>
+    )}
+
+    {specials.length > 0 && (
+      <div>
+        <h2 class="font-display text-3xl mb-2 pb-3 border-b border-sand">Multi-Session Specials</h2>
+        <p class="text-sm text-bark-soft mb-8">Capture milestones across the year with bundled session packages.</p>
+        <div class="grid md:grid-cols-2 gap-6">
+          {specials.map((pkg) => <PackageCard pkg={pkg} />)}
+        </div>
+      </div>
+    )}
+
+    <div class="mt-20 p-8 bg-sand/50 text-center">
+      <h3 class="font-display text-2xl mb-3">Have a custom request?</h3>
+      <p class="text-bark-soft mb-6 max-w-xl mx-auto">
+        I'd love to chat about what would work best for your family. Reach out and let's plan something together.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block bg-rust !text-cream px-8 py-3 text-sm uppercase tracking-widest hover:bg-rust/90 transition-colors"
+      >
+        Get in touch
+      </a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,19 @@
+{
+  "portrait": null,
+  "headline": "My Story",
+  "bio": {
+    "type": "root",
+    "children": [
+      {
+        "type": "p",
+        "children": [
+          {
+            "type": "text",
+            "text": "Hello, and thank you for visiting my site! My name is Courtney and I am a mother of two lovely, beautiful daughters. Early in my life I discovered that I had a passion for photography, and the birth of my daughters deepened that passion. It was a joy to capture their special moments, and it often makes my heart ache to revisit those moments years later. Photography is a craft unlike any other, and it is my goal to share my skill with you and to help capture your family's moments."
+          }
+        ]
+      }
+    ]
+  },
+  "quote": null
+}

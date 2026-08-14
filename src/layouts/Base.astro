@@ -1,0 +1,80 @@
+---
+import "@fontsource-variable/fraunces";
+import "@fontsource-variable/inter";
+import "~/styles/global.css";
+import Header from "~/components/Header.astro";
+import Footer from "~/components/Footer.astro";
+import { getSettings } from "~/lib/content";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  transparentHeader?: boolean;
+  noTopPadding?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  transparentHeader = false,
+  noTopPadding = false,
+} = Astro.props;
+const settings = await getSettings();
+
+const pageTitle = title ?? settings.businessName;
+const fullTitle = pageTitle === settings.businessName ? pageTitle : `${pageTitle} · ${settings.businessName}`;
+const metaDescription = description ?? settings.tagline ?? "";
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageUrl = new URL(ogImage ?? "/uploads/hero/WeaverFamily40.jpg", Astro.site).toString();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: settings.businessName,
+  description: settings.tagline,
+  email: settings.contactEmail,
+  url: canonical,
+  image: ogImageUrl,
+  ...(settings.serviceArea && { areaServed: settings.serviceArea }),
+  ...(settings.socials && {
+    sameAs: Object.values(settings.socials).filter(Boolean),
+  }),
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    {metaDescription && <meta name="description" content={metaDescription} />}
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={settings.businessName} />
+    <meta property="og:title" content={fullTitle} />
+    {metaDescription && <meta property="og:description" content={metaDescription} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    {metaDescription && <meta name="twitter:description" content={metaDescription} />}
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <link rel="icon" type="image/png" href="/uploads/brand/logo-square.png" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <Header transparent={transparentHeader} />
+    <main class:list={["flex-1", noTopPadding ? "" : "pt-20"]}>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

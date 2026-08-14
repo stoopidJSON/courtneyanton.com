@@ -1,0 +1,58 @@
+---
+type Node = {
+  type: string;
+  text?: string;
+  children?: Node[];
+  bold?: boolean;
+  italic?: boolean;
+  url?: string;
+};
+
+interface Props {
+  content: { type: "root"; children: Node[] } | undefined | null;
+  class?: string;
+}
+
+const { content, class: className = "" } = Astro.props;
+
+function renderInline(node: Node): string {
+  if (node.type === "text") {
+    let text = node.text ?? "";
+    if (node.bold) text = `<strong>${text}</strong>`;
+    if (node.italic) text = `<em>${text}</em>`;
+    return text;
+  }
+  if (node.type === "a") {
+    const inner = (node.children ?? []).map(renderInline).join("");
+    return `<a href="${node.url ?? "#"}">${inner}</a>`;
+  }
+  return (node.children ?? []).map(renderInline).join("");
+}
+---
+{content && (
+  <div class={`rich-text ${className}`}>
+    {content.children.map((node) => {
+      const inner = (node.children ?? []).map(renderInline).join("");
+      switch (node.type) {
+        case "h1": return <h1 set:html={inner} />;
+        case "h2": return <h2 set:html={inner} />;
+        case "h3": return <h3 set:html={inner} />;
+        case "blockquote": return <blockquote set:html={inner} />;
+        case "p":
+        default: return <p set:html={inner} />;
+      }
+    })}
+  </div>
+)}
+<style>
+  .rich-text :global(p) { margin-bottom: 1em; line-height: 1.7; }
+  .rich-text :global(p:last-child) { margin-bottom: 0; }
+  .rich-text :global(h2) { font-size: 1.875rem; margin: 1.5em 0 0.5em; }
+  .rich-text :global(h3) { font-size: 1.5rem; margin: 1.25em 0 0.5em; }
+  .rich-text :global(blockquote) {
+    border-left: 3px solid var(--color-sage);
+    padding-left: 1rem;
+    font-style: italic;
+    margin: 1.5em 0;
+  }
+</style>

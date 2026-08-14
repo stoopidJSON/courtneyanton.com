@@ -1,0 +1,69 @@
+---
+import RichText from "~/components/RichText.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  pkg: CollectionEntry<"packages">;
+}
+const { pkg } = Astro.props;
+const { name, subtitle, price, priceNote, altPrice, altPriceNote, included, includedAlt, image } = pkg.data;
+const hasAltTier = altPrice && includedAlt.length > 0;
+---
+<article class="bg-cream border border-sand flex flex-col h-full">
+  {image && (
+    <div class="aspect-[3/2] overflow-hidden bg-sand">
+      <img src={image} alt={name} class="w-full h-full object-cover" loading="lazy" />
+    </div>
+  )}
+  <div class="p-8 flex flex-col flex-1">
+    <header class="mb-6">
+      <h3 class="font-display text-3xl mb-1">{name}</h3>
+      {subtitle && <p class="text-sm text-bark-soft">{subtitle}</p>}
+    </header>
+
+    <div class="mb-6">
+      <div class="flex items-baseline gap-3">
+        <span class="font-display text-4xl">{price}</span>
+        {priceNote && <span class="text-xs uppercase tracking-widest text-bark-soft">{priceNote}</span>}
+      </div>
+      {hasAltTier && (
+        <div class="flex items-baseline gap-3 mt-2 text-bark-soft">
+          <span class="font-display text-2xl">{altPrice}</span>
+          {altPriceNote && <span class="text-xs uppercase tracking-widest">{altPriceNote}</span>}
+        </div>
+      )}
+    </div>
+
+    <ul class="space-y-2 mb-8 text-sm">
+      {included.map((item) => (
+        <li class="flex gap-2">
+          <span class="text-sage mt-0.5">•</span>
+          <span>{item.text}</span>
+        </li>
+      ))}
+    </ul>
+
+    {hasAltTier && (
+      <div class="border-t border-sand pt-4 mb-8">
+        <p class="text-xs uppercase tracking-widest text-bark-soft mb-3">{altPriceNote ?? "Plus tier adds"}</p>
+        <ul class="space-y-2 text-sm">
+          {includedAlt.map((item) => (
+            <li class="flex gap-2">
+              <span class="text-rust mt-0.5">+</span>
+              <span>{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <div class="mt-auto pt-4">
+      <a
+        href="/contact"
+        class="inline-block w-full text-center border border-bark/30 px-6 py-3 text-sm uppercase tracking-widest hover:bg-bark hover:!text-cream hover:border-bark transition-colors"
+      >
+        Schedule session
+      </a>
+    </div>
+  </div>
+</article>
