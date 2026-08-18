@@ -28,9 +28,9 @@ function isActive(href: string) {
     transparent ? "site-header--transparent text-cream" : "bg-cream/95 backdrop-blur text-bark border-b border-sand",
   ]}
 >
-  <div class="mx-auto max-w-7xl px-6 lg:px-10 flex items-center justify-between h-20">
+  <div class="site-header-inner mx-auto max-w-7xl px-6 lg:px-10 flex items-center justify-between">
     <a href="/" class="shrink-0 hover:opacity-80 transition-opacity">
-      <img src="/uploads/brand/logo-header.png" alt={settings.businessName} class="h-10 sm:h-12 w-auto" />
+      <img src="/uploads/brand/logo-header.png" alt={settings.businessName} class="site-logo w-auto" />
     </a>
 
     <button
@@ -86,10 +86,53 @@ function isActive(href: string) {
     const isOpen = menu.classList.toggle("hidden") === false;
     toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
   });
+
+  const header = document.querySelector(".site-header");
+  function updateScrollState() {
+    header?.classList.toggle("is-scrolled", window.scrollY > 40);
+  }
+  updateScrollState();
+  window.addEventListener("scroll", updateScrollState, { passive: true });
 </script>
 
 <style>
   .site-header--transparent {
     background-color: transparent;
+  }
+
+  .site-header-inner {
+    height: 104px;
+    transition: height 300ms ease;
+  }
+
+  .site-header.is-scrolled .site-header-inner {
+    height: 80px;
+  }
+
+  .site-logo {
+    height: 72px;
+    transition: height 300ms ease;
+  }
+
+  .site-header.is-scrolled .site-logo {
+    height: 45px;
+  }
+
+  @media (min-width: 640px) {
+    .site-header-inner {
+      height: 124px;
+    }
+
+    .site-header.is-scrolled .site-header-inner {
+      height: 80px;
+    }
+
+    .site-logo {
+      height: 88px;
+    }
+
+    .site-header.is-scrolled .site-logo {
+      height: 54px;
+    }
   }
 </style>
